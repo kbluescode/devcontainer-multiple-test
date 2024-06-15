@@ -32,6 +32,6 @@ def set_redis_key(key: str, value: str):
     db = get_db()
     try:
         result = db.set(key, value)
-        return f'Result: {result}'
+        return { 'value': result.decode('utf-8') }
     except:
-        return f'Failed setting: {key}={value}'
+        return { 'error': f'Failed setting {key}={value}' }
