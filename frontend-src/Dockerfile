@@ -1,0 +1,3 @@
+# node:22.3.0-bookworm
+FROM node@sha256:5e4044ff6001d06e7748e35bfa4f80c73cf5f5a7360a1b782995e038a01b0585
+

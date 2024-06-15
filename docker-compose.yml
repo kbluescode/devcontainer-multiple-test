@@ -1,0 +1,63 @@
+name: mc-test # multiple-container test
+
+# configs:
+
+networks:
+  frontend:
+  backend:
+  database:
+
+services:
+  api:
+    build:
+      context: ./api-src
+    command: sleep infinity
+    # command: bash start.sh # uncomment to run server
+    working_dir: /workspace/api-src
+    depends_on:
+      - redis
+    env_file: &env_file
+      - path: .env.shared
+        required: true
+    networks:
+      - frontend
+      - backend
+      - database
+    volumes:
+      - .:/workspace:cached
+
+  frontend:
+    build:
+      context: ./frontend-src
+    command: sleep infinity
+    # command: npm run dev # uncomment to run server
+    working_dir: /workspace/frontend-src
+    env_file: *env_file
+    networks:
+      - frontend
+      - backend
+    volumes:
+      - .:/workspace:cached
+
+  caddy:
+    image: caddy@sha256:a48e22edad925dc216fd27aa4f04ec49ebdad9b64c9e5a3f1826d0595ef2993c
+    networks:
+      - frontend
+      - backend
+    ports:
+      - '80:80'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+
+  redis:
+    image: redis/redis-stack@sha256:1c5f43fddcddfa44045ee1caffa0d4d744311802a17e0397033a00d1638773a6
+    networks:
+      - database
+    ports:
+      - '6379:6379' # Redis server
+      - '8001:8001' # RedisInsight
+    volumes:
+      - redis-vol:/data
+
+volumes:
+  redis-vol:

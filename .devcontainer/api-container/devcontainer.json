@@ -1,0 +1,19 @@
+{
+  "name": "API Devcontainer",
+  "dockerComposeFile": [
+    "../../docker-compose.yml"
+  ],
+  "service": "api",
+  "shutdownAction": "none",
+  "workspaceFolder": "/workspace/api-src",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.autopep8",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "ms-python.debugpy"
+      ]
+    }
+  }
+}

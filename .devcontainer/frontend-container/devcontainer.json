@@ -1,0 +1,16 @@
+{
+  "name": "Frontend Devcontainer",
+  "dockerComposeFile": [
+    "../../docker-compose.yml"
+  ],
+  "service": "frontend",
+  "shutdownAction": "none",
+  "workspaceFolder": "/workspace/frontend-src",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "svelte.svelte-vscode"
+      ]
+    }
+  }
+}

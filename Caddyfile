@@ -1,0 +1,13 @@
+{
+  auto_https off
+  skip_install_trust
+}
+
+http://api.localhost:80 {
+  header Access-Control-Allow-Origin "*"
+  reverse_proxy api:8000
+}
+
+http://localhost:80 {
+  reverse_proxy frontend:5173
+}
